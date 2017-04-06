@@ -1,6 +1,6 @@
 import sys
 
-print sys.path
-
 class C(object):
-	pass
+    def __init__(self):
+        pass
+        print 'original'
