@@ -3,7 +3,6 @@ import ast
 
 class MyTransformer(ast.NodeTransformer):
     def generic_visit(self, node):
-        print(node)
         return super().generic_visit(node)
 
     def visit_Str(self, node):
@@ -11,6 +10,11 @@ class MyTransformer(ast.NodeTransformer):
 
     def visit_Num(self, node):
         node.n = 123
+        return node
+
+    def visit_BinOp(self, node):
+        node.op = ast.Sub()
+        node.left = ast.Num(0)
         return node
 
     def visit_FunctionDef(self, node):
@@ -33,7 +37,7 @@ class MyTransformer(ast.NodeTransformer):
 node = ast.parse("""
 def bad_func_name():
     print('this func called.')
-    return 5
+    return 5+1
 """)
 
 MyTransformer().visit(node)
