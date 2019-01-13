@@ -2,6 +2,10 @@ import ast
 
 
 class MyTransformer(ast.NodeTransformer):
+    def generic_visit(self, node):
+        print(node)
+        return super().generic_visit(node)
+
     def visit_Str(self, node):
         return ast.Str(node.s.upper())
 
