@@ -9,12 +9,18 @@ class MyTransformer(ast.NodeTransformer):
         return ast.Str(node.s.upper())
 
     def visit_Num(self, node):
-        node.n = 123
+        print(ast.dump(node))
+        if node.n == 1:
+            node.n = 123
         return node
 
     def visit_BinOp(self, node):
+        print(ast.dump(node))
+        node = self.generic_visit(node)
+        print(ast.dump(node))
         node.op = ast.Sub()
         node.left = ast.Num(0)
+        print(ast.dump(node))
         return node
 
     def visit_FunctionDef(self, node):
@@ -46,6 +52,8 @@ ast.fix_missing_locations(node)
 
 comp = compile(node, '', 'exec')
 exec(comp)
+
+print()
 
 try:
     print('bad_func_name()', bad_func_name())
