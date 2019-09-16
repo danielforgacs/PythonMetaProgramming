@@ -16,20 +16,20 @@ with open(MODULEFILE, 'r') as filehandler:
     sourcecode = filehandler.read()
 
 source_ast = ast.parse(sourcecode)
-print(ast.dump(source_ast))
+# print(ast.dump(source_ast))
 
 
 class ImportSwapper(ast.NodeTransformer):
-    # def generic_visit(self, node):
-    #     print(ast.dump(node))
-    #     return super().generic_visit(node)
+    def generic_visit(self, node):
+        print(ast.dump(node))
+        return super().generic_visit(node)
 
     def visit_Import(self, node):
         return node
 
 
 tweakedsource_ast = ImportSwapper().visit(source_ast)
-print(ast.dump(tweakedsource_ast))
+# print(ast.dump(tweakedsource_ast))
 # print(ROOT_DIR)
 # print(ROOT_PARENT_DIR)
 
