@@ -20,7 +20,12 @@ print(ast.dump(source_ast))
 
 
 class ImportSwapper(ast.NodeTransformer):
-    pass
+    # def generic_visit(self, node):
+    #     print(ast.dump(node))
+    #     return super().generic_visit(node)
+
+    def visit_Import(self, node):
+        return node
 
 
 tweakedsource_ast = ImportSwapper().visit(source_ast)
@@ -32,3 +37,4 @@ print(ast.dump(tweakedsource_ast))
 # print(module.__file__)
 # print(MODULEFILE)
 # print(sourcecode)
+# print(dir(ImportSwapper()))
