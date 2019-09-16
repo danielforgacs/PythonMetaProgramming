@@ -1,23 +1,34 @@
 import os
 import sys
+import ast
 
 ROOT_DIR = (
     os.path.dirname(
         os.path.abspath(__file__)
 ))
 ROOT_PARENT_DIR = os.path.dirname(ROOT_DIR)
+MODULEFILE = os.path.join(ROOT_PARENT_DIR, 'ASTSwapImport/module.py')
 
 sys.path += [ROOT_PARENT_DIR]
 
-MODULEFILE = os.path.join(ROOT_PARENT_DIR, 'ASTSwapImport/module.py')
 
 with open(MODULEFILE, 'r') as filehandler:
     sourcecode = filehandler.read()
 
-print(ROOT_DIR)
-print(ROOT_PARENT_DIR)
+source_ast = ast.parse(sourcecode)
+print(ast.dump(source_ast))
 
-import ASTSwapImport.module as module
-print(module.__file__)
-print(MODULEFILE)
-print(sourcecode)
+
+class ImportSwapper(ast.NodeTransformer):
+    pass
+
+
+tweakedsource_ast = ImportSwapper().visit(source_ast)
+print(ast.dump(tweakedsource_ast))
+# print(ROOT_DIR)
+# print(ROOT_PARENT_DIR)
+
+# import ASTSwapImport.module as module
+# print(module.__file__)
+# print(MODULEFILE)
+# print(sourcecode)
