@@ -16,35 +16,16 @@ with open(MODULEFILE, 'r') as filehandler:
     sourcecode = filehandler.read()
 
 source_ast = ast.parse(sourcecode)
-# print(ast.dump(source_ast))
-
-
 newimport = ast.Import()
 newimport.names = [ast.alias(name='mockmath', asname='math')]
 
-print(ast.dump(newimport))
-
 
 class ImportSwapper(ast.NodeTransformer):
-    # def generic_visit(self, node):
-    #     print(ast.dump(node))
-    #     return super().generic_visit(node)
-
     def visit_Import(self, node):
         ast.copy_location(newimport, node)
         return newimport
 
 
 tweakedsource_ast = ImportSwapper().visit(source_ast)
-print(ast.dump(tweakedsource_ast))
-# print(ROOT_DIR)
-# print(ROOT_PARENT_DIR)
-
-# import ASTSwapImport.module as module
-# print(module.__file__)
-# print(MODULEFILE)
-# print(sourcecode)
-# print(dir(ImportSwapper()))
-
 compiled = compile(tweakedsource_ast, '', 'exec')
 exec(compiled)
