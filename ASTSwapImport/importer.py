@@ -8,7 +8,11 @@ ROOT_DIR = (
 ROOT_PARENT_DIR = os.path.dirname(ROOT_DIR)
 
 sys.path += [ROOT_PARENT_DIR]
+
 MODULEFILE = os.path.join(ROOT_PARENT_DIR, 'ASTSwapImport/module.py')
+
+with open(MODULEFILE, 'r') as filehandler:
+    sourcecode = filehandler.read()
 
 print(ROOT_DIR)
 print(ROOT_PARENT_DIR)
@@ -16,3 +20,4 @@ print(ROOT_PARENT_DIR)
 import ASTSwapImport.module as module
 print(module.__file__)
 print(MODULEFILE)
+print(sourcecode)
