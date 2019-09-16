@@ -27,5 +27,8 @@ class ImportSwapper(ast.NodeTransformer):
 
 
 tweakedsource_ast = ImportSwapper().visit(source_ast)
-compiled = compile(tweakedsource_ast, '', 'exec')
-exec(compiled)
+compiled = compile(tweakedsource_ast, 'tweakedmodule', 'exec')
+exec(compiled, {})
+
+# print(math)
+print(dir())
