@@ -30,16 +30,10 @@ class ImportSwapper(ast.NodeTransformer):
 tweakedsource_ast = ImportSwapper().visit(source_ast)
 compiled = compile(tweakedsource_ast, 'tweakedmodule', 'exec')
 tempnamespace = {}
-# exec(compiled)
+
 exec(compiled, tempnamespace)
 
-# print(math)
-# print(dir())
-
 tweakedmodule = types.ModuleType('tweakedmodule')
-
-# print(tweakedmodule)
-# print(tempnamespace.keys())
 
 for item, value in tempnamespace.items():
     if item[0] == '_':
