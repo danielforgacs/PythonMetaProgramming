@@ -1,1 +1,1 @@
-print('MOCK MATH IMPORTED')
+print('>>> MOCK MATH IMPORTED')
