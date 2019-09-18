@@ -57,17 +57,20 @@ tweakedsource_ast = ImportSwapper().visit(source_ast)
 # The tweaked AST is compiled
 compiled = compile(tweakedsource_ast, 'tweakedmodule', 'exec')
 
-
-tempnamespace = {}
-
-exec(compiled, tempnamespace)
-
+# A new module is created to act as the
+# namespace for the executed code
 tweakedmodule = types.ModuleType('tweakedmodule')
 
-for item, value in tempnamespace.items():
-    if item[0] == '_':
-        continue
-    # print(item)
-    setattr(tweakedmodule, item, value)
+# the tweaked, compiled module code is
+# executed in the new modules namespace.
+exec(compiled, tweakedmodule.__dict__)
 
-print(tweakedmodule.math)
+# Adding __file__ attr to the dynamic module:
+tweakedmodule.__file__ = MODULEFILE
+
+
+print()
+print('[tweakedmodule]:', tweakedmodule)
+print('[tweakedmodule.__name__]:', tweakedmodule.__name__)
+print('[tweakedmodule.__file__]:', tweakedmodule.__file__)
+print('[tweakedmodule.math]:', tweakedmodule.math)
