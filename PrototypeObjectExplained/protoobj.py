@@ -16,9 +16,25 @@ class CustomObj:
 
     def __eq__(self, other):
         """
-        called by: ==
+        called by: "=="
         """
         return self.sameattr == other.sameattr
+
+    def __lt__(self, other):
+        """
+        less than, called by: "<"
+        """
+        return self.idx < other.idx
+
+
+    def __new__(cls, *args, **kwargs):
+        """
+        called before __init__. Can be used to create
+        singletons.
+        """
+        instance = super().__new__(cls)
+        return instance
+
 
 
 
@@ -44,3 +60,6 @@ if __name__ == '__main__':
 
     print('\n:: ==')
     print(obj1 == obj2)
+
+    print('\n:: <')
+    print(obj1 < obj2)
