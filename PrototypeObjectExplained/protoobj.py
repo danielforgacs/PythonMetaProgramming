@@ -61,6 +61,13 @@ class CustomObj:
         return value
 
 
+    def __contains__(self, value):
+        """
+        called by: "in"
+        """
+        return True
+
+
 
 
 if __name__ == '__main__':
@@ -83,3 +90,4 @@ if __name__ == '__main__':
     print(getattr(obj1, 'idx'))
     print(obj1.title)
     print(obj1.missing)
+    print('a' in obj1)
