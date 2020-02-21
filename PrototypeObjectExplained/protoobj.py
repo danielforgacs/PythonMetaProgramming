@@ -78,12 +78,14 @@ class CustomObj:
         return True
 
 
+    @print_methodinfo
     def __iter__(self):
         self.iterstart = 0
         return self
 
 
 
+    @print_methodinfo
     def __next__(self):
         while self.iterstart < 5:
             self.iterstart += 1
@@ -91,6 +93,12 @@ class CustomObj:
             return 'iter: {}'.format(self.iterstart)
 
         raise StopIteration
+
+
+
+    @print_methodinfo
+    def __getitem__(self, index):
+        return 'a'
 
 
 
@@ -111,6 +119,7 @@ if __name__ == '__main__':
     getattr(obj1, 'idx')
     obj1.title
     obj1.missing
+    obj1[7]
     'a' in obj1
 
     for item in obj1:
