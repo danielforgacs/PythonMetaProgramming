@@ -1,6 +1,6 @@
 def print_methodinfo(method):
     def wrapper(*args, **kwargs):
-        print('[CALL] {}'.format(method.__name__))
+        print('\t[CALL] {}'.format(method.__name__))
         result = method(*args, **kwargs)
         return result
     return wrapper
@@ -78,6 +78,23 @@ class CustomObj:
         return True
 
 
+    def __iter__(self):
+        self.iterstart = 0
+        return self
+
+
+
+    def __next__(self):
+        while self.iterstart < 5:
+            self.iterstart += 1
+
+            return 'iter: {}'.format(self.iterstart)
+
+        raise StopIteration
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -95,6 +112,9 @@ if __name__ == '__main__':
     obj1.title
     obj1.missing
     'a' in obj1
+
+    for item in obj1:
+        print(item)
 
     print('obj1: ', obj1)
     print('objs: ', objs)
