@@ -1,13 +1,18 @@
 def print_methodinfo(method):
     def wrapper(*args, **kwargs):
-        print('\t[CALL] {}'.format(method.__name__))
+        # print('\t[CALL] {}'.format(method.__name__))
         result = method(*args, **kwargs)
         return result
     return wrapper
 
 
 
-class CustomObj:
+class CustomType(type):
+    pass
+
+
+
+class CustomObj(metaclass=CustomType):
     @print_methodinfo
     def __init__(self, idx, title):
         self.idx = idx
@@ -103,10 +108,22 @@ class CustomObj:
 
 
 
+DynamicClass = type('DynamicClass', (), {})
+DynamicClassWithMeta = CustomType('DynamicClassWithMeta', (), {})
+
+
+
+
 
 
 if __name__ == '__main__':
     pass
+
+    print(dir(type))
+    print(dir(object))
+
+    instanceX = DynamicClass()
+    instanceY = DynamicClassWithMeta()
 
     obj1 = CustomObj(idx=1, title='one')
     obj2 = CustomObj(idx=2, title='two')
